@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from AppCoder.models import Alumnos
-from AppCoder.forms import AlumnosFormulario
+from AppCoder.models import Alumnos, Profesores
+from AppCoder.forms import ProfesFormulario, AlumnosFormulario
+
 
 # Create your views here.
 #Primer Vista
@@ -23,7 +24,10 @@ def alumnos(request):
         
         if miFormulario.is_valid():
             informacion = miFormulario.cleaned_data
-            alumnosInsta = Alumnos(nombre = informacion["nombre"] , apellido = informacion["apellido"] , edad = informacion["edad"] )
+            alumnosInsta = Alumnos(
+                            nombre = informacion["nombre"] , 
+                            apellido = informacion["apellido"] , 
+                            edad = informacion["edad"] )
             alumnosInsta.save()
             return render(request, 'AppCoder/inicio.html')
         
@@ -31,6 +35,26 @@ def alumnos(request):
         miFormulario = AlumnosFormulario()
         
     return render(request,'AppCoder/alumnos.html', {"miFormulario": miFormulario})
+
+def profesFomulario(request):
+    if request.method == "POST":
+        miFormulario = ProfesFormulario(request.POST)
+        
+        if miFormulario.is_valid():
+            informacion = miFormulario.cleaned_data
+            profesInsta = Profesores(
+                        nombre = informacion["nombre"] ,
+                        apellido = informacion["apellido"] , 
+                        edad = informacion["edad"],
+                        instrumento = informacion["instrumento"] )
+            profesInsta.save()
+            return render(request, 'AppCoder/inicio.html')
+        
+    else:
+        miFormulario = ProfesFormulario()
+        
+    return render(request,'AppCoder/profesFormulario.html', {"miFormulario": miFormulario})
+
 
 def busquedaAlumnos(request): 
      return render(request, 'AppCoder/busquedaAlumnos.html')

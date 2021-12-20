@@ -1,10 +1,13 @@
 {% extends "AppCoder/padre.html" %}
+
 {% load static %}
     {% block contenido %}
-        {% if miFormulario.errores %}
+        
+    {% if miFormulario.errores %}
             <p>ERROR</p>
         {% endif %}
-        <form action="/AppCoder/alumnos" method="POST"> {% csrf_token %}
+
+        <form action="/AppCoder/profesFormulario" method="POST"> {% csrf_token %}
             <table>
                 {{ miFormulario.as_table}}
             </table>
@@ -13,5 +16,5 @@
     {% endblock %}
 
     {% block contenido2 %}
-         <h2 class="display-4">Alumnos de nuestra escuela de Rock</h2>
+         <h2 class="display-4">Formulario de Profesores que quieren enseñar en nuestra escuela de Rock</h2>
     {% endblock %}
