@@ -9,5 +9,5 @@ urlpatterns = [
     path('profesores', views.profesores, name="Profesores"),
     path('busquedaAlumnos', views.busquedaAlumnos),
     path('profesFormulario', views.profesFomulario),
-    #path('buscar/', views.buscar)
+    path('buscar/', views.buscar)
 ]

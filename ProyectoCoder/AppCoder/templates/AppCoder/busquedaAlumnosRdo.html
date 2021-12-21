@@ -1,0 +1,26 @@
+{% extends "AppCoder/padre.html" %}
+{% load static %}
+
+
+   {% block contenido2 %}
+      <h2 class="display-4">  Resultado de la búsqueda.... </h2>
+      
+      {% if alumnos %}
+         <ul>
+            {% for alumnos in alumnos %} 
+            <table>
+              <li class="display-6"> 
+               {{alumnos.nombre}}
+               {{alumnos.apellido}}
+               {{alumnos.edad}} 
+              </li>
+            </table>
+               
+            {% endfor %}
+         </ul>
+      {% endif %}
+   {% endblock %}
+
+
+
+    

@@ -59,16 +59,16 @@ def profesFomulario(request):
 def busquedaAlumnos(request): 
      return render(request, 'AppCoder/busquedaAlumnos.html')
  
- #def buscar(request):
-   # if request.GET['nombre']:
-        #nombre = request.GET['nombre']
-        #alumnos = Alumnos.objects.filter(nombre_icontains=nombre)
+ 
+def buscar(request):
+    if request.GET["nombre"]:
+        nombre = request.GET["nombre"]
+        alumnos = Alumnos.objects.filter(nombre__icontains=nombre)
         
         #respuesta = f"Estoy buscando a: {request.GET['nombre']}"
-        #return render(request, "AppCoder/resultadoBusqueda.html")
+        return render(request, "AppCoder/busquedaAlumnosRdo.html",{"alumnos":alumnos, "nombre": nombre })
     
-    #else: 
-        
-        #respuesta = "Por favor, enviar información"
-    #return HttpResponse(respuesta)
+    else: 
+        respuesta = "Por favor, enviar información"
+    return HttpResponse(respuesta)
 
