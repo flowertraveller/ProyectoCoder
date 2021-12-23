@@ -1,0 +1,23 @@
+{% extends "AppCoder/padre.html" %}
+{% load static %}
+
+{% block contenido %}
+      <h2 class="display-4">ALUMNOS DE LA BASE DE DATOS</h2>
+{% endblock %}
+
+{% block contenido2 %}
+
+   {% for a in alumnos %}  
+    
+        <li> ALUMNOS: {{ a }} </li>
+         <button> 
+
+            <a href="{% url 'EliminarAlumnos' a.apellido %}"> Eliminar </a>
+
+         </button>
+
+   {% endfor %} 
+    
+   
+{% endblock %}
+    

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, request
 from AppCoder.models import Alumnos, Profesores
 from AppCoder.forms import ProfesFormulario, AlumnosFormulario
 
@@ -65,10 +65,19 @@ def buscar(request):
         nombre = request.GET["nombre"]
         alumnos = Alumnos.objects.filter(nombre__icontains=nombre)
         
-        #respuesta = f"Estoy buscando a: {request.GET['nombre']}"
         return render(request, "AppCoder/busquedaAlumnosRdo.html",{"alumnos":alumnos, "nombre": nombre })
     
     else: 
         respuesta = "Por favor, enviar información"
     return HttpResponse(respuesta)
 
+def leerAlumnos(request):
+    alumnos = Alumnos.objects.all()
+    dir = {"alumnos":alumnos} #contexto
+    return render(request, "AppCoder/leerAlumnos.html", dir)
+
+def eliminarAlumnos(request, apellido_para_borrar):
+    alumnoQueQuieroBorrar = Alumnos.objects.get(apellido=apellido_para_borrar)
+    alumnoQueQuieroBorrar.delete()
+    alumnos = Alumnos.objects.all() 
+    return render(request, "AppCoder/leerAlumnos.html", {"alumnos":alumnos})
