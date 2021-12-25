@@ -1,0 +1,23 @@
+{% extends "AppCoder/padre.html" %}
+
+{% load static %}
+  
+
+        {% block contenido2 %}
+            <h1> Formulario de Edición de Alumnos</h1>
+            {% if miFormulario.errors %}
+                <p>ERROR</p>
+            {% endif %}
+                        
+            <form action="/AppCoder/editarAlumno" method="POST"> {% csrf_token %}
+                <table>
+                    {{ miFormulario.as_table}}
+                </table>
+                <input type="submit" value="Editar"></input>
+            </form> 
+        {% endblock %}
+   
+       
+    
+
+   

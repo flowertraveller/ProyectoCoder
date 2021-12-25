@@ -10,14 +10,17 @@
    {% for a in alumnos %}  
     
         <li> ALUMNOS: {{ a }} </li>
-         <button> 
+         <button> <a href="{% url 'EliminarAlumnos' a.apellido %}"> Eliminar </a>  </button>
+         <button>  <a href="{% url 'EditarAlumno' a.apellido %}"> Editar </a> </button>
 
-            <a href="{% url 'EliminarAlumnos' a.apellido %}"> Eliminar </a>
-
-         </button>
-
+       
    {% endfor %} 
-    
-   
+    <div>
+          <br>
+      <button>  <a href="{% url 'AlumnoFormulario'%}"> DAR DE ALTA ALUMNO </a></button>
+    </div>
+         
+     
+
 {% endblock %}
     

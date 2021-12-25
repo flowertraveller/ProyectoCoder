@@ -1,19 +1,20 @@
 {% extends "AppCoder/padre.html" %}
 {% load static %}
-    {% block contenido %}
-        
-    {% if miFormulario.errores %}
-            <p>ERROR</p>
-        {% endif %}
-
-        <form action="/AppCoder/alumnos" method="POST"> {% csrf_token %}
-            <table>
-                {{ miFormulario.as_table}}
-            </table>
-            <input type="submit" value="Enviar"></input>
-        </form> 
-    {% endblock %}
+    
 
     {% block contenido2 %}
-         <h2 class="display-4">Alumnos de nuestra escuela de Rock</h2>
+         <h2 class="display-4">Formulario para darse de alta como alumno</h2>
+         
+        
+            {% if miFormulario.errores %}
+                    <p>ERROR</p>
+                {% endif %}
+
+                <form action="/AppCoder/alumnos" method="POST"> {% csrf_token %}
+                    <table>
+                        {{ miFormulario.as_table}}
+                    </table>
+                    <input type="submit" value="Enviar"></input>
+                </form> 
+           
     {% endblock %}

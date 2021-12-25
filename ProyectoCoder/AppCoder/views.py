@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, request
 from AppCoder.models import Alumnos, Profesores
-from AppCoder.forms import ProfesFormulario, AlumnosFormulario
+from AppCoder.forms import ProfesFormulario, AlumnosFormulario, AlumnoFormulario
 
 
 # Create your views here.
@@ -18,6 +18,8 @@ def profesores(request):
 
     return render(request,'AppCoder/profesores.html' )
 
+#FORMULARIOS
+#ALUMNOS
 def alumnos(request):
     if request.method == "POST":
         miFormulario = AlumnosFormulario(request.POST)
@@ -36,7 +38,8 @@ def alumnos(request):
         
     return render(request,'AppCoder/alumnos.html', {"miFormulario": miFormulario})
 
-def profesFomulario(request):
+#PROFESORES
+def profesFormulario(request):
     if request.method == "POST":
         miFormulario = ProfesFormulario(request.POST)
         
@@ -54,6 +57,28 @@ def profesFomulario(request):
         miFormulario = ProfesFormulario()
         
     return render(request,'AppCoder/profesFormulario.html', {"miFormulario": miFormulario})
+
+#MODIFICAR ALUMNOS
+def alumnoFormulario(request):
+    if request.method == "POST":
+        miFormulario = AlumnoFormulario(request.POST)
+        
+        if miFormulario.is_valid():
+            informacion = miFormulario.cleaned_data
+            
+            alu = Alumnos(
+                        nombre = informacion["nombre"] ,
+                        apellido = informacion["apellido"] , 
+                        edad = informacion["edad"] )
+            
+            alu.save()
+            return render(request, 'AppCoder/inicio.html')
+        
+    else:
+        miFormulario = AlumnoFormulario()
+        
+    return render(request,'AppCoder/alumnoFormulario.html', {"miFormulario": miFormulario})
+#FIN DE FORMULARIOS
 
 
 def busquedaAlumnos(request): 
@@ -81,3 +106,28 @@ def eliminarAlumnos(request, apellido_para_borrar):
     alumnoQueQuieroBorrar.delete()
     alumnos = Alumnos.objects.all() 
     return render(request, "AppCoder/leerAlumnos.html", {"alumnos":alumnos})
+
+def editarAlumno (request, apellido_para_editar):
+    
+    alumno = Alumnos.objects.get(apellido=apellido_para_editar)
+     
+    if request.method == "POST":
+        miFormulario = AlumnoFormulario(request.POST)
+         
+        if miFormulario.is_valid():
+            informacion = miFormulario.cleaned_data
+          
+            alumno.nombre = informacion["nombre"] ,
+            alumno.apellido = informacion["apellido"]
+            alumno.edad = informacion["edad"]
+            alumno.save()           
+            
+            return render(request, 'AppCoder/inicio.html')
+            
+    else:
+            miFormulario = AlumnoFormulario(initial= 
+                            {"nombre":alumno.nombre, 
+                            "apellido": alumno.apellido, 
+                             "edad": alumno.edad})
+            
+    return render(request,'AppCoder/editarAlumno.html', {"miFormulario": miFormulario , "apellido_para_editar":apellido_para_editar})
