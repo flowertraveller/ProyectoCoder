@@ -109,7 +109,7 @@ def eliminarAlumnos(request, apellido_para_borrar):
 
 def editarAlumno (request, apellido_para_editar):
     
-    alumno = Alumnos.objects.get(apellido=apellido_para_editar)
+    alumnos = Alumnos.objects.get(apellido=apellido_para_editar)
      
     if request.method == "POST":
         miFormulario = AlumnoFormulario(request.POST)
@@ -117,17 +117,17 @@ def editarAlumno (request, apellido_para_editar):
         if miFormulario.is_valid():
             informacion = miFormulario.cleaned_data
           
-            alumno.nombre = informacion["nombre"] ,
-            alumno.apellido = informacion["apellido"]
-            alumno.edad = informacion["edad"]
-            alumno.save()           
+            alumnos.nombre = informacion["nombre"] 
+            alumnos.apellido = informacion["apellido"]
+            alumnos.edad = informacion["edad"]
+            alumnos.save()           
             
             return render(request, 'AppCoder/inicio.html')
             
     else:
             miFormulario = AlumnoFormulario(initial= 
-                            {"nombre":alumno.nombre, 
-                            "apellido": alumno.apellido, 
-                             "edad": alumno.edad})
+                            {"nombre":alumnos.nombre, 
+                            "apellido": alumnos.apellido, 
+                             "edad": alumnos.edad})
             
     return render(request,'AppCoder/editarAlumno.html', {"miFormulario": miFormulario , "apellido_para_editar":apellido_para_editar})
