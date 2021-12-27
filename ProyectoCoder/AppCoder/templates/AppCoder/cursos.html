@@ -2,7 +2,7 @@
 {% load static %}
    
    {% block contenido2 %}
-      <h2 class="display-5">Cursos disponibles:</h2>
+      <h2 class="display-7">Cursos disponibles:</h2>
 
       {% for cursos in object_list %} 
         
@@ -14,14 +14,14 @@
          </table>
         
          <p>
-            <a href="{% url 'Detail' cursos.id %}">Ver más</a>
-            <a href="{% url 'Edit' cursos.id %}">Editar</a>
-            <a href="{% url 'Delete' cursos.id %}">Borrar</a>
+            <a href="{% url 'Detail' cursos.id %}"> <input type="submit" value="Ver +"></a>
+            <a href="{% url 'Edit' cursos.id %}"> <input type="submit" value="Editar"></a>
+            <a href="{% url 'Delete' cursos.id %}"> <input type="submit" value="Borrar"></a>
           </p>
          
           
       {% endfor %}
-      <h2 class="display-5">Crear un nuevo curso</h2>
-      <a href="{% url 'New' %}">CREATE</a> 
+      <h2 class="display-7">Crear un nuevo curso</h2>
+      <a href="{% url 'New' %}"><input type="submit" value="Crear"></input></a> 
    {% endblock %}
   
