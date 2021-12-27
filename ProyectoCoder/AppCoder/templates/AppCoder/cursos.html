@@ -1,13 +1,27 @@
 {% extends "AppCoder/padre.html" %}
 {% load static %}
-
-
+   
    {% block contenido2 %}
       <h2 class="display-5">Cursos disponibles:</h2>
 
       {% for cursos in object_list %} 
-         <li>{{ cursos.nombre}} </li>
-      {% endfor %}
+        
+         <table>
+            <li class="display-8"> 
+             NOMBRE DEL CURSO:  {{cursos.nombre}} <br>
+             CAMADA: {{cursos.camada}}
+           </li>
+         </table>
+        
+         <p>
+            <a href="{% url 'Detail' cursos.id %}">Ver más</a>
+            <a href="{% url 'Edit' cursos.id %}">Editar</a>
+            <a href="{% url 'Delete' cursos.id %}">Borrar</a>
+          </p>
          
+          
+      {% endfor %}
+      <h2 class="display-5">Crear un nuevo curso</h2>
+      <a href="{% url 'New' %}">CREATE</a> 
    {% endblock %}
-
+  

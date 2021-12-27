@@ -1,0 +1,17 @@
+{% extends "AppCoder/padre.html" %}
+
+
+{% load static %}
+
+        {% block contenido2 %}
+            <h1 class="mb-1">Confirma el delete</h1>
+            <form method="post"> {% csrf_token %}
+
+             <p>Estás seguro que deseas borrar: <br></p> 
+               "{{ object }}" ???
+
+            <input type="submit" value="submit" />
+            </form>
+
+        {% endblock %}
+

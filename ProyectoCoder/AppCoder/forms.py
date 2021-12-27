@@ -18,4 +18,9 @@ class AlumnoFormulario(forms.Form):
     apellido = forms.CharField(max_length=40)
     edad = forms.IntegerField()
     
+class CursosFormulario(forms.Form):
+    nombre = forms.CharField(max_length=40) 
+    camada = forms.IntegerField()
+   
+    
     

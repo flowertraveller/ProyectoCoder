@@ -1,16 +1,28 @@
 {% extends "AppCoder/padre.html" %}
 {% load static %}
-{% block contenido %}
 
-    <h1>Acá van los cursos detallados</h1>
+        {% block contenido2 %}
+            <h1 class="mb-1">Lista de cursos</h1>
+        {% endblock %}
+        
+        {% block contenido %}
+            <ul>
+               {% for cursos in object_list %}
+            <li>
 
-   <li>Curso 1</li>
-   <li>Curso 2</li>
-   <li>Curso 3</li>
+              <p>NOMBRE: {{ cursos.nombre}}</p>
 
-{% endblock %}
+              <p>
+              <a href="{% url 'Detail' curso.id %}">Ver más</a>
+              <a href="{% url 'Edit' curso.id %}">Editar</a>
+              <a href="{% url 'Delete' curso.id %}">Borrar</a>
 
-{% block contenido2 %}
-   <h2 class="display-4">Curso de bajo</h2>
-{% endblock %}
-    
+            </p>
+
+            </li>
+
+            {% endfor %}
+          </ul>
+         
+
+        {% endblock %}

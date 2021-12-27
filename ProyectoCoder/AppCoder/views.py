@@ -5,6 +5,7 @@ from AppCoder.forms import ProfesFormulario, AlumnosFormulario, AlumnoFormulario
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import  CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 
 
 
@@ -148,8 +149,22 @@ class CursosList(ListView):
     model = Cursos
     template_name = "AppCoder/cursos.html"
 
-class CursosDetalle(DetailView):
+class CursosDetail(DetailView):
     model = Cursos
     template_name = "AppCoder/cursos_detail.html"
 
-
+class CursosCreate(CreateView):
+    model = Cursos
+    success_url = "../cursos"  
+    fields = ["nombre", "camada"]
+    
+class CursosUpdate(UpdateView):
+    model = Cursos
+    success_url = "../cursos"
+    fields = ["nombre", "camada"]
+    
+class CursosDelete(DeleteView):
+    model = Cursos
+    success_url = "../cursos"
+    
+    

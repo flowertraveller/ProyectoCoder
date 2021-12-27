@@ -1,0 +1,28 @@
+{% extends "AppCoder/padre.html" %}
+{% load static %}
+
+
+   {% block contenido %}
+
+
+   {% if miFormulario.errors %}
+
+   <p>ERROOOOOR!!!!!!!!!!!!!!</p>
+   {% endif %}
+
+
+   <form action="/AppCoder/cursosFormulario" method="POST">{% csrf_token %}
+       
+       <table>
+
+               {{ miFormulario.as_table }}
+
+       </table>
+
+       <input type="submit" value="Enviar Datos!!!!">
+   </form>
+
+
+
+
+     
