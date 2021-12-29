@@ -6,6 +6,7 @@ from AppCoder import views
 
 urlpatterns = [
     path('inicio', views.inicio, name="Inicio"),
+
     #path('cursos', views.cursos, name="Cursos"),
     path('alumnos', views.alumnos, name="Alumnos"),
     path('profesores', views.profesores, name="Profesores"),
@@ -25,4 +26,6 @@ urlpatterns = [
     path(r'^editar/(?P<pk>\d+)$', views.CursosUpdate.as_view(), name='Edit'),
     path(r'^borrar/(?P<pk>\d+)$', views.CursosDelete.as_view(), name='Delete'),
     
- ] 
+     #LOGIN
+     path('login', views.login_request, name="Login"),
+] 

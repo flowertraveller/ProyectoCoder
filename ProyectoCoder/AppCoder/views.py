@@ -1,3 +1,4 @@
+from django.contrib.auth.password_validation import password_changed
 from django.shortcuts import render
 from django.http import HttpResponse, request
 from AppCoder.models import Alumnos, Profesores, Cursos, Cursos
@@ -5,26 +6,20 @@ from AppCoder.forms import ProfesFormulario, AlumnosFormulario, AlumnoFormulario
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import  CreateView, UpdateView, DeleteView
-
-
-
-
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout, authenticate
 
 
 # Create your views here.
 #Primer Vista
 def inicio(request):
-
     return render(request,'AppCoder/inicio.html' )
 
 def cursos(request):
-
     return render(request,'AppCoder/cursos.html' )
 
 def profesores(request):
-
     return render(request,'AppCoder/profesores.html' )
-
 
 #FORMULARIOS
 #ALUMNOS
@@ -88,10 +83,8 @@ def alumnoFormulario(request):
     return render(request,'AppCoder/alumnoFormulario.html', {"miFormulario": miFormulario})
 #FIN DE FORMULARIOS
 
-
 def busquedaAlumnos(request): 
      return render(request, 'AppCoder/busquedaAlumnos.html')
- 
  
 def buscar(request):
     if request.GET["nombre"]:
@@ -116,7 +109,6 @@ def eliminarAlumnos(request, apellido_para_borrar):
     return render(request, "AppCoder/leerAlumnos.html", {"alumnos":alumnos})
 
 def editarAlumno (request, apellido_para_editar):
-    
     alumnos = Alumnos.objects.get(apellido=apellido_para_editar)
      
     if request.method == "POST":
@@ -135,12 +127,12 @@ def editarAlumno (request, apellido_para_editar):
     else:
             miFormulario = AlumnoFormulario(initial= 
                             {"nombre":alumnos.nombre, 
-                            "apellido": alumnos.apellido, 
+                             "apellido": alumnos.apellido, 
                              "edad": alumnos.edad})
             
     return render(request,'AppCoder/editarAlumno.html', 
                 {"miFormulario": miFormulario ,
-                "apellido_para_editar":apellido_para_editar})
+                 "apellido_para_editar":apellido_para_editar})
 
 # CBV (clases pasadas en vistas) ----> CRUD (Create, Read, Update, Delete) con CURSOS
 #Leer --- nos da todos los cursos que hay
@@ -166,5 +158,27 @@ class CursosUpdate(UpdateView):
 class CursosDelete(DeleteView):
     model = Cursos
     success_url = "../cursos"
+
+#Para el login
+def login_request(request):
+    if request.method =="POST":
+        form = AuthenticationForm(request, data = request.POST)
+        if form.is_valid():
+            usuario = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+            user = authenticate(username=usuario, password = password)
+            
+            if user is not None:
+                login(request, user)
+                return render(request, "AppCoder/inicio.html", {"mensaje":f"Bienvenido {usuario} Rockstar"})
+            else:
+                return render(request, "AppCoder/inicio.html", {"mensaje":f"Error, seguí rockeandola"})
+
+        else:
+            return render(request, "AppCoder/inicio.html", {"mensaje":f"Formulario erróneo"})
+                
+    form = AuthenticationForm() #formulario sin anda para hacer el login
+    return render(request, "AppCoder/login.html", {"form": form})
+
     
     
