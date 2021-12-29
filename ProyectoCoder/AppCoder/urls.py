@@ -1,9 +1,6 @@
 from django.urls import path
 from AppCoder import views
 
-
-
-
 urlpatterns = [
     path('inicio', views.inicio, name="Inicio"),
 
@@ -26,6 +23,7 @@ urlpatterns = [
     path(r'^editar/(?P<pk>\d+)$', views.CursosUpdate.as_view(), name='Edit'),
     path(r'^borrar/(?P<pk>\d+)$', views.CursosDelete.as_view(), name='Delete'),
     
-     #LOGIN
-     path('login', views.login_request, name="Login"),
+    #LOGIN
+    path('login', views.login_request, name="Login"),
+    path('register', views.register, name="Register"),
 ] 
