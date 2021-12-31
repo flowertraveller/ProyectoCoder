@@ -1,13 +1,14 @@
-from django.contrib.auth.password_validation import password_changed
+from django.contrib.auth.password_validation import UserAttributeSimilarityValidator, password_changed
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
-from django.shortcuts import render
-from django.http import HttpResponse, request
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import  CreateView, UpdateView, DeleteView
 from django.views.generic import ListView
-from django.views.generic.detail import DetailView
+from django.shortcuts import render
+from django.http import HttpResponse, request
 from AppCoder.models import Alumnos, Profesores, Cursos, Cursos
-from AppCoder.forms import ProfesFormulario, AlumnosFormulario, AlumnoFormulario, UserRegisterForm
+from AppCoder.forms import ProfesFormulario, AlumnosFormulario, AlumnoFormulario, UserRegisterForm, UserEditForm
 
 # Create your views here.
 #Primer Vista
@@ -96,6 +97,7 @@ def buscar(request):
         respuesta = "Por favor, enviar información"
     return HttpResponse(respuesta)
 
+@login_required
 def leerAlumnos(request):
     alumnos = Alumnos.objects.all()
     dir = {"alumnos":alumnos} #contexto
@@ -191,3 +193,22 @@ def register(request):
             form = UserRegisterForm()     
     return render(request,"AppCoder/register.html" ,  {"form":form})
     
+    
+@login_required
+def editarPerfil(request):
+    usuario = request.user
+    if request.method == 'POST':
+        miFormulario = UserEditForm(request.POST)
+        if miFormulario.is_valid():
+            informacion = miFormulario.cleaned_data
+            
+            usuario.email = informacion['email']
+            usuario.password1 = informacion['password1']
+            usuario.password2 = informacion['password2']
+            
+            usuario.save()
+            return render(request, "AppCoder/inicio.html")
+    
+    else: 
+        miFormulario = UserEditForm(initial={'email':usuario.email})
+    return render(request, "AppCoder/editarPerfil.html", {"miFormulario":miFormulario, "usuario":usuario})

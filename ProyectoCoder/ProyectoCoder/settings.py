@@ -122,3 +122,6 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#MODIFICACIÓN DE LA RUTA DEL LOGIN
+LOGIN_URL = '/AppCoder/login'
