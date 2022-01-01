@@ -2,6 +2,7 @@ from django.urls import path
 from AppCoder import views
 from django.contrib.auth.views import LogoutView  #Para Logout
 
+
 urlpatterns = [
     path('inicio', views.inicio, name="Inicio"),
 
@@ -32,4 +33,7 @@ urlpatterns = [
     
     #EDITARPERFIL
     path('editarPerfil', views.editarPerfil, name="editarPerfil"),
+    
+
+    
 ] 
