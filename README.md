@@ -4,6 +4,7 @@
 Participante:
 Florencia Radrizzani
 Hice el 100% del proyecto.
+https://www.linkedin.com/in/florencia-radrizzani-marketing/
 
 
 AboutMe
